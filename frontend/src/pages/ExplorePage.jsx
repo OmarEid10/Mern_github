@@ -14,15 +14,10 @@ const ExplorePage = () => {
     setRepos([]);
     try {
       const res = await fetch(
-        `https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`,
-        {
-          headers: {
-            authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY}`,
-          },
-        }
+        "http://localhost:5000/api/explore/repos/" + language
       );
-      const data = await res.json();
-      setRepos(data.items);
+      const { repos } = await res.json();
+      setRepos(repos);
 
       setSelectedLanguage(language);
     } catch (error) {
@@ -31,7 +26,6 @@ const ExplorePage = () => {
       setLoading(false);
     }
   };
-
   return (
     <div className="px-4">
       <div className="bg-glass max-w-2xl mx-auto rounded-md p-4">
@@ -69,12 +63,6 @@ const ExplorePage = () => {
             className="h-11 sm:h-20 cursor-pointer"
             onClick={() => exploreRepos("java")}
           />
-          <img
-            src="/kotlin.svg"
-            alt="kotlin logo"
-            className="h-11 sm:h-20 cursor-pointer"
-            onClick={() => exploreRepos("kotlin")}
-          />
         </div>
         {repos.length > 0 && (
           <h2 className="text-lg font-semibold text-center my-4">
@@ -92,5 +80,4 @@ const ExplorePage = () => {
     </div>
   );
 };
-
 export default ExplorePage;

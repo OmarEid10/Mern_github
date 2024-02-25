@@ -13,9 +13,7 @@ const ExplorePage = () => {
     setLoading(true);
     setRepos([]);
     try {
-      const res = await fetch(
-        "/api/explore/repos/" + language
-      );
+      const res = await fetch("/api/explore/repos/" + language);
       const { repos } = await res.json();
       setRepos(repos);
 
@@ -62,6 +60,12 @@ const ExplorePage = () => {
             alt="Java logo"
             className="h-11 sm:h-20 cursor-pointer"
             onClick={() => exploreRepos("java")}
+          />
+          <img
+            src="/kotlin.svg"
+            alt="kotlin logo"
+            className="h-11 sm:h-20 cursor-pointer"
+            onClick={() => exploreRepos("kotlin")}
           />
         </div>
         {repos.length > 0 && (
